@@ -48,7 +48,7 @@ class Heap {
 		_down(0);
 	}
 
-	T top() {return _content[0];}
+	T top() {return *_content.begin();}
 
 	size_t size() {return _content.size();}
 };
