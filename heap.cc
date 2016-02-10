@@ -1,6 +1,6 @@
+#include <iostream>
 #include <vector>
-#include <cstdlib>
-
+#include <stdlib.h>
 using namespace std;
 
 template <typename T>
@@ -10,9 +10,7 @@ class Heap {
 		int parent = (v - 1) / 2;
 		while (parent >= 0 && _content[v] > _content[parent])
 		{
-			T temp = _content[v];
-			_content[v] = _content[parent];
-			_content[parent] = temp;
+			std::swap(_content[parent], _content[v]);
 			v = parent;
 		}
 	}
@@ -26,12 +24,12 @@ class Heap {
 			int u = _content[left] > _content[right] ? left : right;
 			if (_content[u] > _content[v])
 			{
-				T temp = _content[u];
-				_content[u] = _content[v];
-				_content[v] = temp;
+				std::swap(_content[u], _content[v]);				
 				v = u;
+				left = 2 * v + 1;
+				right = 2 * v + 2;
 			}
-			else break;
+			else return;
 		}
 	}
 
@@ -54,3 +52,17 @@ class Heap {
 
 	size_t size() {return _content.size();}
 };
+
+/* For testing
+int main() {
+	for (int j = 0; j < 20; j++)
+	{
+		Heap<int> h;
+		for (int i = 0; i < 1000000; i++)
+			h.push(rand());
+		for (int i = 0; i < 1000000; i++)
+			h.pop();
+	}
+	return 0;
+}
+*/
